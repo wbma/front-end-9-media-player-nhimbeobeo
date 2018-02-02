@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {User} from '../interfaces/user';
 
 @Injectable()
 export class MediaService {
 
   username: string;
   password: string;
-  email: string;
   apiUrl = 'http://media.mw.metropolia.fi/wbma';
   status: string;
 
@@ -32,16 +32,12 @@ export class MediaService {
     });
   }
 
-  public register() {
-    const body = {
-      username: this.username,
-      password: this.password,
-      email: this.email
+  public register(user: User) {
+    const settings = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
     };
 
-    this.http.post(this.apiUrl + '/login', body).subscribe(response => {
-      console.log(response['token']);
-    });
+    return this.http.post(this.apiUrl + '/users', user, settings);
   }
 
   public getUserData() {

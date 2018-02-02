@@ -1,13 +1,9 @@
-{{'Username'}}
-<br>
-<input [(ngModel)] = "mediaService.username">
-<br>
-{{'Password'}}
-<br>
-<input [(ngModel)] = "mediaService.password">
-<br>
-{{'Email'}}
-<br>
-<input [(ngModel)] = "mediaService.email">
-<br>
-<button (click)="mediaService.register()">Register</button>
+<form (submit) ="register()">
+  <input [(ngModel)] = "user.username" placeholder="Username" name="username">
+  <br>
+  <input [(ngModel)] = "user.password" placeholder="Password" name="password">
+  <br>
+  <input [(ngModel)] = "user.email" placeholder="Email" name="email">
+  <br>
+  <button type="submit">Register</button>
+</form>
