@@ -10,6 +10,9 @@ export class MediaService {
   password: string;
   apiUrl = 'http://media.mw.metropolia.fi/wbma';
   status: string;
+  file: File;
+  title: string;
+  description: string;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -21,7 +24,7 @@ export class MediaService {
     };
 
     const settings = {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
 
     this.http.post(this.apiUrl + '/login', body, settings).subscribe(response => {
@@ -34,10 +37,18 @@ export class MediaService {
 
   public register(user: User) {
     const settings = {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
-
     return this.http.post(this.apiUrl + '/users', user, settings);
+  }
+
+  public startUpload(formData: FormData) {
+    const settings = {
+      headers: new HttpHeaders()
+        .set('x-access-token', localStorage.getItem('token'))
+    };
+    return this.http.post(this.apiUrl + '/media', formData, settings);
+
   }
 
   public getUserData() {
